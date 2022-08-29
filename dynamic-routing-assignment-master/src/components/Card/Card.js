@@ -2,6 +2,7 @@ import React from "react";
 import "./Card.scss";
 
 function Card({ id, name, email }) {
+
   return (
     <div className="card">
       <img
