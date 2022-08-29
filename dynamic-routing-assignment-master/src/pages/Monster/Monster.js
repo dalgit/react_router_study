@@ -1,12 +1,13 @@
 import Card from "../../components/Card/Card";
 import "./Monster.scss";
-import { Link,useParams } from "react-router-dom";
+import { Link,useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect }  from "react";
 
 function Monster() {
   const [monster, setMonster] = useState({});
   const params = useParams();
   const userId = params.id;
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
@@ -14,6 +15,13 @@ function Monster() {
       .then((result) => setMonster(result));
   }, [userId]);
 
+function previousIdSet(){
+  navigate(`/detail/${Number(userId)-1}`)
+}
+
+function NextIdSet(){
+  navigate(`/detail/${Number(userId)+1}`)
+}
   return (
     <article className="monster">
       <div className="btnWrapper">
@@ -23,8 +31,8 @@ function Monster() {
       </div>
       <Card {...monster}/>
       <div className="btnWrapper">
-        <button>Previous</button>
-        <button>Next</button>
+        <button onClick={previousIdSet}>Previous</button>
+        <button onClick={NextIdSet}>Next</button>
       </div>
     </article>
   );
